@@ -218,7 +218,7 @@ class Player extends EventEmitter {
      * @returns {Promise<Track>}
      */
     _searchTracks (ctx, query, firstResult, isAttachment) {
-        const channel = client.channels.cache.find(id => ctx.channelID)
+        const channel = this.client.channels.cache.find(id => ctx.channelID)
         return new Promise(async (resolve) => {
             let tracks = []
             let updatedQuery = null
@@ -523,7 +523,7 @@ class Player extends EventEmitter {
      */
     _createQueue (ctx, track) {
         return new Promise((resolve, reject) => {
-            const guildObject = client.guilds.cache.find(g => g.id === ctx.guildID)
+            const guildObject = this.client.guilds.cache.find(g => g.id === ctx.guildID)
             const memberObject = guildObject.members.cache.find(m => m.id === ctx.user.id)
             const channel = memberObject.voice ? memberObject.voice.channel : null
             if (!channel) return this.emit('error', 'NotConnected', ctx)
